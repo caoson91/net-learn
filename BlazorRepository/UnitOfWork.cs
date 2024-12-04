@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlazorRepository
+﻿namespace BlazorRepository
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
         public IUsersRepository Users { get; }
-        public UnitOfWork(ApplicationDbContext context, IUsersRepository usersRepository)
+        public UnitOfWork(ApplicationDbContext context, IUsersRepository usersRepository)      
         {
             _context = context;
             Users = usersRepository;

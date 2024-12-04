@@ -1,6 +1,13 @@
 using BlazorApp.Components;
+using BlazorRepository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(opt => opt
+            .UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+
+builder.Services.AddServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
