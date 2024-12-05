@@ -12,17 +12,17 @@ namespace BlazorRepository
         [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public Guid CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime? UpdatedDate { get; set; } = DateTime.UtcNow;
-        public Guid? UpdatedBy { get; set; }
+        public int? UpdatedBy { get; set; }
 
         [DefaultValue(false)]
         public bool IsDeleted { get; set; } = false;
     }
 
-    public class EntityBase : EntityBase<Guid>
+    public class EntityBase : EntityBase<int>
     {
 
     }

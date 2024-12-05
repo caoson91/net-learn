@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using BlazorRepository
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -10,10 +11,24 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
+   
+    [Inject] IProductService service { get; set; }
+
     private int currentCount = 0;
 
     private void IncrementCount()
     {
+        var product = new Product()
+            {
+                Name = "Product 1",
+                Description = "description 1",
+                CategoryId = 1,
+                ExpiredDate = DateTime.Now,
+                CreatedBy = 1,
+                CreatedDate = DateTime.Now
+            };
+
+        var res = service.AddProductAsync(product);
         currentCount++;
     }
 }

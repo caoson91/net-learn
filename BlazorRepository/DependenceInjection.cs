@@ -9,6 +9,8 @@ namespace BlazorRepository
             services.AddTransient<IUsersService, UserService>();
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductService, ProductService>();
 
             return services;
         }

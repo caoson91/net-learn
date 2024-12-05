@@ -5,7 +5,7 @@ namespace BlazorRepository
     public class ApplicationDbContext: DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-        public DbSet<Users> Users { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace BlazorRepository
                 }
             }
 
-            
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
         }
     }
 }

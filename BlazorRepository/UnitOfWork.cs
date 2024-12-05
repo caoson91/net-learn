@@ -3,11 +3,11 @@
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public IUsersRepository Users { get; }
-        public UnitOfWork(ApplicationDbContext context, IUsersRepository usersRepository)      
+        public IProductRepository Product { get; }
+        public UnitOfWork(ApplicationDbContext context, IProductRepository product)      
         {
             _context = context;
-            Users = usersRepository;
+            Product = product;
         }
 
         public async Task<int> CompleteAsync()

@@ -10,8 +10,8 @@ namespace BlazorRepository
         {
             builder.ToTable(typeof(T).Name);
 
-            builder.Property(e => e.Id)
-                .HasDefaultValueSql("newsequentialid()");
+            //builder.Property(e => e.Id)
+            //    .HasDefaultValueSql("newsequentialid()");
 
             builder.Property(e => e.IsDeleted)
                 .HasDefaultValue(false);
