@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlazorRepository
+namespace BlazorRepository.Model
 {
     public class EntityBase<TPrimary>
     {

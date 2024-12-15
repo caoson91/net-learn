@@ -1,13 +1,17 @@
-﻿namespace BlazorRepository
+﻿namespace BlazorRepository.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
         public IProductRepository Product { get; }
-        public UnitOfWork(ApplicationDbContext context, IProductRepository product)      
+        public ICategoryRepository Category { get; }
+        public UnitOfWork(ApplicationDbContext context, 
+            IProductRepository product,
+            ICategoryRepository category)
         {
             _context = context;
             Product = product;
+            Category = category;
         }
 
         public async Task<int> CompleteAsync()

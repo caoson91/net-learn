@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BlazorRepository.Repository;
+using BlazorRepository.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorRepository
 {
@@ -11,6 +13,8 @@ namespace BlazorRepository
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             return services;
         }

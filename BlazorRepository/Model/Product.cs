@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BlazorRepository
+namespace BlazorRepository.Model
 {
     public class Product : EntityBase
     {
@@ -8,7 +8,7 @@ namespace BlazorRepository
         public string Description { get; set; }
         public int? CategoryId { get; set; }
         //[Column(TypeName = "datetime")]
-        public DateTime? ExpiredDate { get; set; } = default(DateTime?);
+        public DateTime? ExpiredDate { get; set; } = default;
 
     }
 }

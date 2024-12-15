@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorRepository.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlazorRepository
+namespace BlazorRepository.Configuration
 {
     public class ProductConfiguration : EntityBaseConfiguration<Product>
     {

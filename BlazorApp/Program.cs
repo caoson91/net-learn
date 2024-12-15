@@ -1,6 +1,9 @@
 using BlazorApp.Components;
 using BlazorRepository;
 using Microsoft.EntityFrameworkCore;
+using Hangfire;
+using Hangfire.SqlServer;
+using CronJob;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +11,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt => opt
             .UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
 builder.Services.AddServices();
+builder.Services.ConfigureCronJobServices();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
+// Add Hangfire services.
+builder.Services.AddHangfire(configuration => configuration
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(builder.Configuration.GetConnectionString("ConnectionString"))
+    .AddHangfireJob(builder.Configuration));
+
+
+// Add the processing server as IHostedService
+builder.Services.AddHangfireServer();
+
+
 var app = builder.Build();
+
+app.UseHangfireDashboard();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

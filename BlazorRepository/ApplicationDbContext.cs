@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorRepository.Configuration;
+using BlazorRepository.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorRepository
 {
@@ -21,6 +23,7 @@ namespace BlazorRepository
             }
 
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
 }

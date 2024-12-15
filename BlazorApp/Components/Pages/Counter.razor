@@ -1,5 +1,8 @@
 ﻿@page "/counter"
+@using BlazorApp.ViewModel
 @using BlazorRepository
+@using BlazorRepository.Model
+@using BlazorRepository.Service
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -10,18 +13,90 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-@code {
-   
-    [Inject] IProductService service { get; set; }
+<br />
+<br />
+<br />
 
+
+<EditForm Model="ProductModel" OnSubmit="HandleFormSubmit">
+    <InputSelect id="drpCategory" @bind-Value="categoryId">
+        @foreach (var cat in ListCategories)
+        {
+            <option value="@cat.Id">@cat.Name</option>
+        }
+    </InputSelect>
+
+    @if (ProductModel.CategoryNames.Any())
+    {
+        for (int i = 0; i < ProductModel.CategoryNames.Count; i++)
+        {
+            <br />
+            @* <InputText Value="@ProductModel.CategoryNames[i]"
+    ValueChanged="@(value => UpdateCategoryName(i, value))"
+    ValueExpression="(() => ProductModel.CategoryNames[i])" /> *@
+
+
+
+           @*  <InputText Value="@ProductModel.CategoryNames[i]"
+                       @oninput="@(e => UpdateCategoryName(i, e.Value.ToString()))" /> *@
+        }
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <InputText @bind-Value="ProductModel.ProductName" />
+    <button>Submit</button>
+</EditForm>
+
+
+
+@code {
+
+    [Inject] IProductService service { get; set; }
+    [Inject] ICategoryService CategoryService { get; set; }
+
+    private IEnumerable<Category> ListCategories = Enumerable.Empty<Category>();
+    private ProductViewModel ProductModel = new ProductViewModel();
+
+    private int categoryId = 1;
     private int currentCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListCategories = await CategoryService.GetAllCategory();
+
+        ProductModel.CategoryNames = new List<string>() { "Cat 1", "Cat 2" };
+
+        StateHasChanged();
+    }
+
+
+    private void UpdateCategoryName(int index, string value)
+    {
+        if (ProductModel.CategoryNames == null)
+        {
+            Console.WriteLine("CategoryNames list is null.");
+            return;
+        }
+
+        if (index >= 0 && index < ProductModel.CategoryNames.Count)
+        {
+            ProductModel.CategoryNames[index] = value;
+        }
+        else
+        {
+            Console.WriteLine($"Invalid index: {index}. List size: {ProductModel.CategoryNames.Count}");
+        }
+    }
 
     private void IncrementCount()
     {
         var product = new Product()
             {
-                Name = "Product 1",
-                Description = "description 1",
+                Name = "Product 2",
+                Description = "description 2",
                 CategoryId = 1,
                 ExpiredDate = DateTime.Now,
                 CreatedBy = 1,
@@ -30,5 +105,13 @@
 
         var res = service.AddProductAsync(product);
         currentCount++;
+    }
+
+    private async Task HandleFormSubmit()
+    {
+        foreach (var item in ProductModel.CategoryNames)
+        {
+            Console.WriteLine(item);
+        }
     }
 }

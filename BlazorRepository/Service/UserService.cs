@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorRepository
+namespace BlazorRepository.Service
 {
-    public interface IProductRepository : IGenericRepository<Product>
+    public class UserService : IUsersService
     {
     }
 }

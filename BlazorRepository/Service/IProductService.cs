@@ -1,4 +1,6 @@
-﻿namespace BlazorRepository
+﻿using BlazorRepository.Model;
+
+namespace BlazorRepository.Service
 {
     public interface IProductService
     {

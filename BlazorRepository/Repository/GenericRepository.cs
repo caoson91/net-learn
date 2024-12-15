@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace BlazorRepository
+namespace BlazorRepository.Repository
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
