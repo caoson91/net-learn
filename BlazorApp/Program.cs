@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Hangfire.SqlServer;
 using CronJob;
+using BlazorApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.ConfigureCronJobServices();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddSingleton<SignalRService>();
 
 // Add Hangfire services.
 builder.Services.AddHangfire(configuration => configuration
