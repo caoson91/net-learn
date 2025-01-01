@@ -1,0 +1,6 @@
+@APISignalRClient_HostAddress = http://localhost:5181
+
+GET {{APISignalRClient_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

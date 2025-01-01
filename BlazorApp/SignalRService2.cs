@@ -2,13 +2,13 @@
 
 namespace BlazorApp
 {
-    public class SignalRService
+    public class SignalRService2
     {
         private HubConnection _hubConnection;
 
         public event Action<string, string>? MessageReceived;
 
-        public SignalRService()
+        public SignalRService2()
         {
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl("https://localhost:7232/messagehub")

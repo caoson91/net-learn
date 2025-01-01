@@ -1,10 +1,9 @@
 using BlazorApp.Components;
 using BlazorRepository;
-using Microsoft.EntityFrameworkCore;
-using Hangfire;
-using Hangfire.SqlServer;
+using BlazorUtilities;
 using CronJob;
-using BlazorApp;
+using Hangfire;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

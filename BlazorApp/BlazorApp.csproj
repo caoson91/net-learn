@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorRepository\BlazorRepository.csproj" />
+    <ProjectReference Include="..\BlazorUtilities\BlazorUtilities.csproj" />
     <ProjectReference Include="..\CronJob\CronJob.csproj" />
   </ItemGroup>
 

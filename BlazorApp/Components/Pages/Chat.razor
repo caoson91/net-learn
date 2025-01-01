@@ -1,6 +1,8 @@
 ﻿@page "/chat"
+@using BlazorUtilities
 @rendermode InteractiveServer
 @inject SignalRService SignalRService
+@implements IAsyncDisposable
 
 <h3>Chat</h3>
 
@@ -20,20 +22,72 @@
     private string Message = "";
     private List<string> Messages = new();
 
+    private HashSet<string> listMessageId = new HashSet<string>();
+
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     SignalRService.MessageReceived -= OnMessageReceived;
+    //     SignalRService.MessageReceived += OnMessageReceived;
+    // }
+
+    // private async Task OnMessageReceived(string user, string message, string messageId)
+    // {
+    //     await InvokeAsync(() =>
+    //     {
+    //         Console.WriteLine($"{user}: {message}");
+    //         Messages.Add(message);
+    //         StateHasChanged();
+    //     });
+    // }
+
+    // public async ValueTask DisposeAsync()
+    // {
+    //     SignalRService.MessageReceived -= OnMessageReceived;
+    //     await Task.CompletedTask;
+    // }
+
+
+
     protected override async Task OnInitializedAsync()
     {
-        SignalRService.MessageReceived += (user, message) =>
+        // Unsubscribe from the event to prevent duplicate subscriptions
+        //SignalRService.MessageReceived -= MessageReceived;
+
+        SignalRService.MessageReceived += (user, message, messageId) =>
         {
-            Messages.Add($"{user}: {message}");
-            InvokeAsync(StateHasChanged);
+            if (listMessageId.Add(messageId))
+            {
+                Console.WriteLine($"{user}: {message}");
+
+                Messages.Add($"{user}: {message}");
+                InvokeAsync(StateHasChanged);
+            }
+
         };
 
         await SignalRService.ConnectAsync();
     }
 
+    public async ValueTask DisposeAsync()
+    {
+        // Unsubscribe from the event to prevent memory leaks
+        SignalRService.MessageReceived -= (user, message, messageId) =>
+        {
+            if (listMessageId.Add(messageId))
+            {
+                Console.WriteLine($"{user}: {message}");
+
+                Messages.Add($"{user}: {message}");
+                InvokeAsync(StateHasChanged);
+            }
+
+        };
+    }
+
     private async Task SendMessage()
     {
-        await SignalRService.SendMessageAsync(UserName, Message);
+        await SignalRService.SendMessageAsync(UserName, Message, "messageId");
         Message = "";
     }
 }

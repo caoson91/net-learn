@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRepository", "BlazorR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CronJob", "CronJob\CronJob.csproj", "{4B9A5300-A367-41C4-8968-AC26D410C45F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{1D10E20E-7E7D-4A8B-A141-DE800EC0ED38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{1D10E20E-7E7D-4A8B-A141-DE800EC0ED38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APISignalRClient", "APISignalRClient\APISignalRClient.csproj", "{9E2F5C18-E755-4BFB-9ABB-6C04D04F9C24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorUtilities", "BlazorUtilities\BlazorUtilities.csproj", "{7709C79C-6544-4E88-BCB0-B2BA2E0A34D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{1D10E20E-7E7D-4A8B-A141-DE800EC0ED38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D10E20E-7E7D-4A8B-A141-DE800EC0ED38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D10E20E-7E7D-4A8B-A141-DE800EC0ED38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E2F5C18-E755-4BFB-9ABB-6C04D04F9C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E2F5C18-E755-4BFB-9ABB-6C04D04F9C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E2F5C18-E755-4BFB-9ABB-6C04D04F9C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E2F5C18-E755-4BFB-9ABB-6C04D04F9C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7709C79C-6544-4E88-BCB0-B2BA2E0A34D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7709C79C-6544-4E88-BCB0-B2BA2E0A34D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7709C79C-6544-4E88-BCB0-B2BA2E0A34D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7709C79C-6544-4E88-BCB0-B2BA2E0A34D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
