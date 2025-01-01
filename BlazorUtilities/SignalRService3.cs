@@ -41,7 +41,11 @@ namespace BlazorUtilities
 
         public async ValueTask DisposeAsync()
         {
-            await _hubConnection.DisposeAsync();
+            if (_hubConnection != null && _hubConnection.State != HubConnectionState.Disconnected)
+            {
+                await _hubConnection.StopAsync(); // Close the connection gracefully
+                await _hubConnection.DisposeAsync(); // Dispose the connection
+            }
         }
     }
 }

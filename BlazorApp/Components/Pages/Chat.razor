@@ -11,10 +11,16 @@
 <button @onclick="SendMessage">Send</button>
 
 <ul>
-    @foreach (var msg in Messages)
+
+    @for (int i = 0; i < Messages.Count(); i++)
+    {
+        <li>@Messages[i]</li>
+    }
+
+    @* @foreach (var msg in Messages)
     {
         <li>@msg</li>
-    }
+    } *@
 </ul>
 
 @code {
@@ -71,6 +77,7 @@
     {
         // Unsubscribe from the event to prevent memory leaks
         SignalRService.MessageReceived -= OnMessageReceived;
+       
     }
 
     private async Task SendMessage()

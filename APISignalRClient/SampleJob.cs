@@ -27,12 +27,12 @@ namespace APISignalRClient
 
             await _signalRService.ConnectAsync();
 
-            for (int i = 1; i < 1000; i++)
+            for (int i = 1; i < 1000000000; i++)
             {
                 string guiId = Guid.NewGuid().ToString();
                 await _signalRService.SendMessageAsync("APISignalRClient 11111", guiId + " - APISignalRClient " + i, guiId);
 
-                await Task.Delay(2000);
+                //await Task.Delay(2000);
             }
 
         }
