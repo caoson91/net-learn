@@ -18,6 +18,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddSingleton<SignalRService>();
+builder.Services.AddSingleton<SignalRService3>();
 
 // Add Hangfire services.
 builder.Services.AddHangfire(configuration => configuration

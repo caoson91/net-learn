@@ -1,7 +1,7 @@
 ﻿@page "/chat"
 @using BlazorUtilities
 @rendermode InteractiveServer
-@inject SignalRService SignalRService
+@inject SignalRService3 SignalRService
 @implements IAsyncDisposable
 
 <h3>Chat</h3>
@@ -52,37 +52,25 @@
     protected override async Task OnInitializedAsync()
     {
         // Unsubscribe from the event to prevent duplicate subscriptions
-        //SignalRService.MessageReceived -= MessageReceived;
-
-        SignalRService.MessageReceived += (user, message, messageId) =>
-        {
-            if (listMessageId.Add(messageId))
-            {
-                Console.WriteLine($"{user}: {message}");
-
-                Messages.Add($"{user}: {message}");
-                InvokeAsync(StateHasChanged);
-            }
-
-        };
+        SignalRService.MessageReceived += OnMessageReceived;
 
         await SignalRService.ConnectAsync();
+    }
+
+    private async Task OnMessageReceived(string user, string message, string messageId)
+    {
+        if (listMessageId.Add(messageId))
+        {
+            Console.WriteLine($"{user}: {message}");
+            Messages.Add($"{user}: {message}");
+            await InvokeAsync(StateHasChanged);
+        }
     }
 
     public async ValueTask DisposeAsync()
     {
         // Unsubscribe from the event to prevent memory leaks
-        SignalRService.MessageReceived -= (user, message, messageId) =>
-        {
-            if (listMessageId.Add(messageId))
-            {
-                Console.WriteLine($"{user}: {message}");
-
-                Messages.Add($"{user}: {message}");
-                InvokeAsync(StateHasChanged);
-            }
-
-        };
+        SignalRService.MessageReceived -= OnMessageReceived;
     }
 
     private async Task SendMessage()

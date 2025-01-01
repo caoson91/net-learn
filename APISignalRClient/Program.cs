@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSingleton<SignalRService>();
+builder.Services.AddSingleton<SignalRService3>();
 //builder.Services.AddScoped<IMonitoringJobSevice, MonitoringJobSevice>();
 
 builder.Services.AddQuartz(q =>
