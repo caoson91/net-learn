@@ -21,12 +21,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorRepository\BlazorRepository.csproj" />
     <ProjectReference Include="..\BlazorUtilities\BlazorUtilities.csproj" />
     <ProjectReference Include="..\CronJob\CronJob.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="sql\" />
   </ItemGroup>
 
 </Project>

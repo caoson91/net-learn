@@ -1,0 +1,2 @@
+﻿dotnet tool install --global dotnet-ef
+dotnet ef migrations script --idempotent --output migration.sql --project ../BlazorApp --context ApplicationDbContext

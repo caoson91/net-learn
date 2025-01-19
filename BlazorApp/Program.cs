@@ -4,6 +4,7 @@ using BlazorUtilities;
 using CronJob;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,22 +21,30 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<SignalRService>();
 builder.Services.AddSingleton<SignalRService3>();
 
-// Add Hangfire services.
-builder.Services.AddHangfire(configuration => configuration
-    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-    .UseSimpleAssemblyNameTypeSerializer()
-    .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(builder.Configuration.GetConnectionString("ConnectionString"))
-    .AddHangfireJob(builder.Configuration));
+//// Add Hangfire services.
+//builder.Services.AddHangfire(configuration => configuration
+//    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+//    .UseSimpleAssemblyNameTypeSerializer()
+//    .UseRecommendedSerializerSettings()
+//    .UseSqlServerStorage(builder.Configuration.GetConnectionString("ConnectionString"))
+//    .AddHangfireJob(builder.Configuration));
 
 
-// Add the processing server as IHostedService
-builder.Services.AddHangfireServer();
+//// Add the processing server as IHostedService
+//builder.Services.AddHangfireServer();
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("logs/log-.log", rollingInterval: RollingInterval.Day)
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog(); // Replace the default .NET logger
 
 
 var app = builder.Build();
 
-app.UseHangfireDashboard();
+//app.UseHangfireDashboard();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
