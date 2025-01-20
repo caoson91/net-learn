@@ -1,15 +1,14 @@
 ﻿using BlazorUtilities;
 using Quartz;
-using System.Formats.Asn1;
 
 namespace APISignalRClient
 {
     public class SampleJob : IJob
     {
-        private readonly SignalRService _signalRService;
+        private readonly SignalRService3 _signalRService;
         //private readonly MonitoringJobSevice _monitoringJobSevice;
 
-        public SampleJob(SignalRService signalRService
+        public SampleJob(SignalRService3 signalRService
             //MonitoringJobSevice monitoringJobSevice
             )
         {
@@ -32,7 +31,7 @@ namespace APISignalRClient
                 string guiId = Guid.NewGuid().ToString();
                 await _signalRService.SendMessageAsync("APISignalRClient 11111", guiId + " - APISignalRClient " + i, guiId);
 
-                //await Task.Delay(2000);
+                await Task.Delay(2000);
             }
 
         }

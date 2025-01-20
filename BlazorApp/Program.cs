@@ -20,6 +20,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<SignalRService>();
 builder.Services.AddSingleton<SignalRService3>();
+builder.Services.AddSingleton<SignalRService4>(sp => new SignalRService4("https://localhost:7232/messagehub"));
 
 //// Add Hangfire services.
 //builder.Services.AddHangfire(configuration => configuration

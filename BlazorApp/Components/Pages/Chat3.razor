@@ -1,4 +1,4 @@
-﻿@page "/chat"
+﻿@page "/chat3"
 @using BlazorUtilities
 @rendermode InteractiveServer
 @inject SignalRService3 SignalRService
@@ -19,7 +19,7 @@
 
     @* @foreach (var msg in Messages)
     {
-        <li>@msg</li>
+    <li>@msg</li>
     } *@
 </ul>
 
@@ -29,6 +29,7 @@
     private List<string> Messages = new();
 
     private HashSet<string> listMessageId = new HashSet<string>();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,10 +49,19 @@
         }
     }
 
+    // private async Task OnMessageReceived(string user, string message, string messageId)
+    // {
+    //     if (listMessageId.Add(messageId))
+    //     {
+    //         Console.WriteLine($"{user}: {message}");
+    //         Messages.Add($"{user}: {message}");
+    //         await InvokeAsync(StateHasChanged);
+    //     }
+    // }
 
     public async ValueTask DisposeAsync()
     {
-        // Unsubscribe from the event to prevent duplicate subscriptions
+        // Unsubscribe from the event to prevent memory leaks
         SignalRService.MessageReceived -= OnMessageReceived;
     }
 

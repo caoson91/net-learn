@@ -1,0 +1,44 @@
+﻿@page "/chat4"
+@using BlazorUtilities
+@inject SignalRService4 SignalRService
+
+<h3>Chat</h3>
+<input @bind="UserName" placeholder="Your Name" />
+<input @bind="Message" placeholder="Your Message" />
+<button @onclick="SendMessage">Send</button>
+<ul>
+    @foreach (var msg in Messages)
+    {
+        <li>@msg</li>
+    }
+</ul>
+
+@code {
+    private string UserName = "";
+    private string Message = "";
+    private List<string> Messages = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        SignalRService.MessageReceived += OnMessageReceived;
+        await SignalRService.ConnectAsync();
+    }
+
+    private void OnMessageReceived(string user, string message, string messageId)
+    {
+        Messages.Add($"{user}: {message}");
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SendMessage()
+    {
+        await SignalRService.SendMessageAsync(UserName, Message, Guid.NewGuid().ToString());
+        Message = "";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        SignalRService.MessageReceived -= OnMessageReceived;
+        await SignalRService.DisconnectAsync();
+    }
+}

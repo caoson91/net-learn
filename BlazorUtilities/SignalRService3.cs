@@ -6,7 +6,8 @@ namespace BlazorUtilities
     {
         private readonly HubConnection _hubConnection;
 
-        public event Func<string, string, string, Task>? MessageReceived;
+        //public event Func<string, string, string, Task>? MessageReceived;
+        public event Action<string, string, string> MessageReceived;
 
         public SignalRService3()
         {
@@ -15,12 +16,16 @@ namespace BlazorUtilities
                 .WithAutomaticReconnect()
                 .Build();
 
-            _hubConnection.On<string, string, string>("ReceiveMessage", async (user, message, messageId) =>
+            //_hubConnection.On<string, string, string>("ReceiveMessage", async (user, message, messageId) =>
+            //{
+            //    if (MessageReceived != null)
+            //    {
+            //        await MessageReceived.Invoke(user, message, messageId);
+            //    }
+            //});
+            _hubConnection.On<string, string, string>("ReceiveMessage", (user, message, messageId) =>
             {
-                if (MessageReceived != null)
-                {
-                    await MessageReceived.Invoke(user, message, messageId);
-                }
+                MessageReceived?.Invoke(user, message, messageId);
             });
 
             _hubConnection.StartAsync();
@@ -41,11 +46,20 @@ namespace BlazorUtilities
 
         public async ValueTask DisposeAsync()
         {
-            if (_hubConnection != null && _hubConnection.State != HubConnectionState.Disconnected)
+            if (_hubConnection is not null)
             {
-                await _hubConnection.StopAsync(); // Close the connection gracefully
-                await _hubConnection.DisposeAsync(); // Dispose the connection
+                await _hubConnection.StopAsync();
+                await _hubConnection.DisposeAsync();
             }
         }
+
+        //public async ValueTask DisposeAsync()
+        //{
+        //    if (_hubConnection != null && _hubConnection.State != HubConnectionState.Disconnected)
+        //    {
+        //        await _hubConnection.StopAsync(); // Close the connection gracefully
+        //        await _hubConnection.DisposeAsync(); // Dispose the connection
+        //    }
+        //}
     }
 }

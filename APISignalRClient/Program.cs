@@ -22,19 +22,19 @@ builder.Services.AddQuartz(q =>
         .ForJob(jobKey) // Link to the SampleJob
         .WithIdentity("SampleJob-trigger") // Unique trigger ID
         .WithSimpleSchedule(x => x
-            .WithIntervalInSeconds(10) // Trigger every 10 seconds
+            .WithIntervalInHours(10) // Trigger every 10 seconds
             .RepeatForever()));        // Repeat indefinitely
 
-    var jobKey2 = new JobKey("SampleJob2");
-    q.AddJob<SampleJob2>(opts => opts.WithIdentity(jobKey2));
+    //var jobKey2 = new JobKey("SampleJob2");
+    //q.AddJob<SampleJob2>(opts => opts.WithIdentity(jobKey2));
 
-    // Schedule the job
-    q.AddTrigger(opts => opts
-        .ForJob(jobKey2) // Link to the SampleJob
-        .WithIdentity("SampleJob2-trigger") // Unique trigger ID
-        .WithSimpleSchedule(x => x
-            .WithIntervalInSeconds(10) // Trigger every 10 seconds
-            .RepeatForever()));        // Repeat indefinitely
+    //// Schedule the job
+    //q.AddTrigger(opts => opts
+    //    .ForJob(jobKey2) // Link to the SampleJob
+    //    .WithIdentity("SampleJob2-trigger") // Unique trigger ID
+    //    .WithSimpleSchedule(x => x
+    //        .WithIntervalInSeconds(10) // Trigger every 10 seconds
+    //        .RepeatForever()));        // Repeat indefinitely
 });
 
 // Add Quartz Hosted Service
